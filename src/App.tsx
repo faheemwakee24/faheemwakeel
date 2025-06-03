@@ -9,6 +9,7 @@ import WalletCreation from './WalletCreation.jpg'
 import WebApp from './WebApp.jpg'
 import myCV from './Faheem Wakeel CV.pdf'
 
+
 function App() {
   const [isOpen, setIsOpen] = useState(false);
 
