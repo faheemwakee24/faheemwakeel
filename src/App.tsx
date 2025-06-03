@@ -178,11 +178,11 @@ function App() {
       </div>
 
       {/* Work Experience Section */}
-      <div id="experience" className="py-20 relative">
+      <div id="experience" className="py-20 relative ">
         <div className="absolute inset-0 bg-[#693B93]/5" />
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold mb-12 text-center">Work Experience</h2>
-          <div className="max-w-4xl mx-auto space-y-12">
+          <div className="max-w-4xl mx-auto space-y-12 ">
             {[
               {
                 company: 'Safecare',
@@ -257,7 +257,8 @@ function App() {
           </p>
 
           {/* Main Skills */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16  mx-auto ">
+
             {skills.map((skill, i) => {
               const [ref, isInView] = useInView({ threshold: 0.2 });
               return (
@@ -292,7 +293,7 @@ function App() {
           </div>
 
           {/* Additional Skills */}
-          <div className="grid grid-cols-2 gap-4 mb-12 max-w-4xl mx-auto">
+          <div className="grid grid-cols-4 gap-4 mx-auto">
             {[
               { icon: <Wallet className="w-5 h-5" />, label: 'Multi-Chain Wallets' },
               { icon: <Blocks className="w-5 h-5" />, label: 'Web3.js & Ethers.js' },
@@ -320,49 +321,6 @@ function App() {
                 </div>
               );
             })}
-          </div>
-
-          {/* Experience Level */}
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-[#693B93]/10 rounded-xl p-6 border border-[#693B93]/20">
-              <h3 className="text-xl font-semibold mb-4 text-center">Experience Level</h3>
-              <div className="space-y-4">
-                {[
-                  { skill: 'React Native Development', level: 90 },
-                  { skill: 'Multi-Chain Wallet Development', level: 90 },
-                  { skill: 'Web3 & Blockchain', level: 85 },
-                  { skill: 'Smart Contract Integration', level: 70 },
-                  { skill: 'NFT Marketplace Development', level: 80 },
-                  { skill: 'API Integration & Web3.js', level: 78 },
-                  { skill: 'UI/UX Design', level: 75 },
-                  { skill: 'Performance Optimization', level: 75 }
-                ].map((item, i) => {
-                  const [ref, isInView] = useInView({ threshold: 0.2 });
-                  return (
-                    <div
-                      key={i}
-                      ref={ref}
-                      className={`transform translate-y-10 opacity-0 transition-all duration-700 ${isInView ? 'translate-y-0 opacity-100' : ''
-                        }`}
-                      style={{ transitionDelay: `${i * 100}ms` }}
-                    >
-                      <div className="flex justify-between mb-1">
-                        <span className="text-sm text-gray-300">{item.skill}</span>
-                        <span className="text-sm text-[#9b4ed3]">{item.level}%</span>
-                      </div>
-                      <div className="h-2 bg-[#693B93]/20 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-gradient-to-r from-[#693B93] to-[#9b4ed3] rounded-full transition-all duration-1000 ease-out"
-                          style={{
-                            width: isInView ? `${item.level}%` : '0%'
-                          }}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -395,10 +353,7 @@ function App() {
                 <div className="relative parallax-content">
                   <div className="flex items-start justify-between mb-6">
                     <Package className="w-8 h-8 text-[#9b4ed3] group-hover:scale-110 transition-transform" />
-                    <div className="flex items-center gap-2 text-gray-400">
-                      <Download className="w-4 h-4" />
-                      <span className="text-sm">{pkg.downloads}</span>
-                    </div>
+
                   </div>
                   <h3 className="text-xl font-bold gradient-text mb-3">{pkg.name}</h3>
                   <p className="text-gray-300 mb-6">{pkg.description}</p>
