@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Github, ExternalLink, Mail, Linkedin, Code2, Blocks, Wallet, Brain, Database, Globe, Shield, Cpu, Terminal, Layers, GitBranch, Smartphone, Building, Calendar, ArrowUpRight, Banknote, X, Menu } from 'lucide-react';
+import React, { useState, useEffect, useRef, RefObject } from 'react';
+import { Github, ExternalLink, Mail, Linkedin, Code2, Blocks, Wallet, Brain, Database, Globe, Shield, Cpu, Terminal, Layers, GitBranch, Smartphone, Building, Calendar, ArrowUpRight, Banknote, X, Menu, Package, Download } from 'lucide-react';
 import naitramImage from './naitramImage.png'
 import magnusmobileapp from './magnusmobileapp.png'
 import GayaImage from './GayaImage.png'
@@ -7,8 +7,78 @@ import myProfileWithBlackbackground3 from './myProfileWithBlackbackground3.jpg';
 import mobileAppDevelopment1 from './mobileAppDevelopment1.jpg'
 import WalletCreation from './WalletCreation.jpg'
 import WebApp from './WebApp.jpg'
+import myCV from './Faheem Wakeel CV.pdf'
+
 function App() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleDownloadCV = () => {
+    // Create a link element
+    const link = document.createElement('a');
+    link.href = myCV;
+    link.download = 'FaheemWakeel_CV.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Add useInView hook with proper typing
+  const useInView = (options = {}): [RefObject<HTMLDivElement>, boolean] => {
+    const [isInView, setIsInView] = useState(false);
+    const elementRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      const observer = new IntersectionObserver(([entry]) => {
+        setIsInView(entry.isIntersecting);
+      }, options);
+
+      if (elementRef.current) {
+        observer.observe(elementRef.current);
+      }
+
+      return () => {
+        if (elementRef.current) {
+          observer.unobserve(elementRef.current);
+        }
+      };
+    }, [options]);
+
+    return [elementRef, isInView];
+  };
+
+  const skills = [
+    {
+      icon: <Smartphone className="w-8 h-8" />,
+      title: 'React Native',
+      desc: 'Cross-platform mobile development with optimized performance.',
+      skills: ['iOS & Android', 'Native Modules', 'Performance Optimization']
+    },
+    {
+      icon: <Wallet className="w-8 h-8" />,
+      title: 'Multi-Chain Wallets',
+      desc: 'Development of single-chain and multi-chain wallets with secure asset management.',
+      skills: ['Ethereum', 'BSC', 'Polygon', 'Solana', 'Cross-Chain Transfers']
+    },
+    {
+      icon: <Blocks className="w-8 h-8" />,
+      title: 'Web3 & DApps',
+      desc: 'Building decentralized applications with blockchain integrations.',
+      skills: ['Web3.js', 'Ethers.js', 'Smart Contracts', 'WalletConnect']
+    },
+    {
+      icon: <Banknote className="w-8 h-8" />,
+      title: 'NFT Marketplace',
+      desc: 'Development of NFT marketplaces with minting and trading functionalities.',
+      skills: ['ERC-721 & ERC-1155', 'Auction System', 'IPFS Storage']
+    },
+    {
+      icon: <Brain className="w-8 h-8" />,
+      title: 'UI/UX',
+      desc: 'Designing intuitive and engaging user experiences.',
+      skills: ['Responsive Design', 'Animation', 'User Research']
+    }
+  ]
+
   return (
     <div className="min-h-screen bg-[#1a0b26] text-white">
       {/* Hero Section */}
@@ -73,12 +143,21 @@ function App() {
               <p className="text-lg text-gray-400 mb-8">
                 Specialized in creating seamless mobile experiences and decentralized applications
               </p>
-              <div className="flex gap-4">
-                <a href="#contact" className="px-8 py-3 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-lg text-white font-medium hover:opacity-90 transition-opacity">
+              <div className="flex flex-wrap gap-4">
+                <a href="#contact" className="px-8 py-3 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-lg text-white font-medium hover:opacity-90 transition-opacity flex items-center gap-2">
                   Get in touch
+                  <Mail className="w-4 h-4" />
                 </a>
-                <a href="#projects" className="px-8 py-3 border border-purple-500 rounded-lg text-purple-500 font-medium hover:bg-purple-500/10 transition-colors">
+                <button
+                  onClick={handleDownloadCV}
+                  className="px-8 py-3 border border-purple-500 rounded-lg text-purple-500 font-medium hover:bg-purple-500/10 transition-colors flex items-center gap-2"
+                >
+                  Download CV
+                  <Download className="w-4 h-4" />
+                </button>
+                <a href="#projects" className="px-8 py-3 bg-[#693B93]/10 rounded-lg text-[#9b4ed3] font-medium hover:bg-[#693B93]/20 transition-colors flex items-center gap-2">
                   View Projects
+                  <ArrowUpRight className="w-4 h-4" />
                 </a>
               </div>
             </div>
@@ -177,57 +256,42 @@ function App() {
           </p>
 
           {/* Main Skills */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            {[
-              {
-                icon: <Smartphone className="w-8 h-8" />,
-                title: 'React Native',
-                desc: 'Cross-platform mobile development with optimized performance.',
-                skills: ['iOS & Android', 'Native Modules', 'Performance Optimization']
-              },
-              {
-                icon: <Wallet className="w-8 h-8" />,
-                title: 'Multi-Chain Wallets',
-                desc: 'Development of single-chain and multi-chain wallets with secure asset management.',
-                skills: ['Ethereum', 'BSC', 'Polygon', 'Solana', 'Cross-Chain Transfers']
-              },
-              {
-                icon: <Blocks className="w-8 h-8" />,
-                title: 'Web3 & DApps',
-                desc: 'Building decentralized applications with blockchain integrations.',
-                skills: ['Web3.js', 'Ethers.js', 'Smart Contracts', 'WalletConnect']
-              },
-              {
-                icon: <Banknote className="w-8 h-8" />,
-                title: 'NFT Marketplace',
-                desc: 'Development of NFT marketplaces with minting and trading functionalities.',
-                skills: ['ERC-721 & ERC-1155', 'Auction System', 'IPFS Storage']
-              },
-              {
-                icon: <Brain className="w-8 h-8" />,
-                title: 'UI/UX',
-                desc: 'Designing intuitive and engaging user experiences.',
-                skills: ['Responsive Design', 'Animation', 'User Research']
-              }
-            ].map((skill, i) => (
-              <div key={i} className="p-6 rounded-xl bg-gradient-to-b from-[#693B93]/10 to-transparent border border-[#693B93]/20 hover:border-[#693B93]/40 transition-colors group">
-                <div className="text-[#9b4ed3] mb-4 group-hover:scale-110 transition-transform">{skill.icon}</div>
-                <h3 className="text-xl font-semibold mb-2">{skill.title}</h3>
-                <p className="text-gray-400 mb-4">{skill.desc}</p>
-                <ul className="space-y-2">
-                  {skill.skills.map((item, j) => (
-                    <li key={j} className="flex items-center text-sm text-gray-300">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#9b4ed3] mr-2" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 max-w-5xl mx-auto">
+            {skills.map((skill, i) => {
+              const [ref, isInView] = useInView({ threshold: 0.2 });
+              return (
+                <div
+                  key={i}
+                  ref={ref}
+                  className={`p-6 rounded-xl bg-gradient-to-b from-[#693B93]/10 to-transparent border border-[#693B93]/20 hover:border-[#693B93]/40 transition-colors group transform translate-y-10 opacity-0 transition-all duration-700 ${isInView ? 'translate-y-0 opacity-100' : ''
+                    }`}
+                >
+                  <div className="text-[#9b4ed3] mb-4 group-hover:scale-110 transition-transform duration-300">{skill.icon}</div>
+                  <h3 className="text-xl font-semibold mb-2 group-hover:text-[#9b4ed3] transition-colors">{skill.title}</h3>
+                  <p className="text-gray-400 mb-4">{skill.desc}</p>
+                  <ul className="space-y-2">
+                    {skill.skills.map((item, j) => (
+                      <li
+                        key={j}
+                        className={`flex items-center text-sm text-gray-300 transform translate-x-10 opacity-0 transition-all duration-700 delay-${j * 100}`}
+                        style={{
+                          transitionDelay: `${j * 100}ms`,
+                          transform: isInView ? 'translateX(0)' : 'translateX(2rem)',
+                          opacity: isInView ? 1 : 0,
+                        }}
+                      >
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#9b4ed3] mr-2" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
           </div>
 
           {/* Additional Skills */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          <div className="grid grid-cols-2 gap-4 mb-12 max-w-4xl mx-auto">
             {[
               { icon: <Wallet className="w-5 h-5" />, label: 'Multi-Chain Wallets' },
               { icon: <Blocks className="w-5 h-5" />, label: 'Web3.js & Ethers.js' },
@@ -240,13 +304,21 @@ function App() {
               { icon: <Layers className="w-5 h-5" />, label: 'Redux & State Management' },
               { icon: <Terminal className="w-5 h-5" />, label: 'TypeScript & JavaScript' },
               { icon: <Code2 className="w-5 h-5" />, label: 'Clean & Scalable Code' }
-
-            ].map((skill, i) => (
-              <div key={i} className="flex items-center gap-2 p-3 rounded-lg bg-[#693B93]/10 hover:bg-[#693B93]/20 transition-colors">
-                <div className="text-[#9b4ed3]">{skill.icon}</div>
-                <span className="text-sm">{skill.label}</span>
-              </div>
-            ))}
+            ].map((skill, i) => {
+              const [ref, isInView] = useInView({ threshold: 0.2 });
+              return (
+                <div
+                  key={i}
+                  ref={ref}
+                  className={`flex items-center gap-2 p-3 rounded-lg bg-[#693B93]/10 hover:bg-[#693B93]/20 transition-all duration-500 transform translate-y-10 opacity-0 ${isInView ? 'translate-y-0 opacity-100' : ''
+                    }`}
+                  style={{ transitionDelay: `${i * 100}ms` }}
+                >
+                  <div className="text-[#9b4ed3]">{skill.icon}</div>
+                  <span className="text-sm">{skill.label}</span>
+                </div>
+              );
+            })}
           </div>
 
           {/* Experience Level */}
@@ -258,28 +330,99 @@ function App() {
                   { skill: 'React Native Development', level: 90 },
                   { skill: 'Multi-Chain Wallet Development', level: 90 },
                   { skill: 'Web3 & Blockchain', level: 85 },
-                  { skill: 'Smart Contract Intigeration', level: 70 },
+                  { skill: 'Smart Contract Integration', level: 70 },
                   { skill: 'NFT Marketplace Development', level: 80 },
                   { skill: 'API Integration & Web3.js', level: 78 },
                   { skill: 'UI/UX Design', level: 75 },
                   { skill: 'Performance Optimization', level: 75 }
-
-                ].map((item, i) => (
-                  <div key={i}>
-                    <div className="flex justify-between mb-1">
-                      <span className="text-sm text-gray-300">{item.skill}</span>
-                      <span className="text-sm text-[#9b4ed3]">{item.level}%</span>
+                ].map((item, i) => {
+                  const [ref, isInView] = useInView({ threshold: 0.2 });
+                  return (
+                    <div
+                      key={i}
+                      ref={ref}
+                      className={`transform translate-y-10 opacity-0 transition-all duration-700 ${isInView ? 'translate-y-0 opacity-100' : ''
+                        }`}
+                      style={{ transitionDelay: `${i * 100}ms` }}
+                    >
+                      <div className="flex justify-between mb-1">
+                        <span className="text-sm text-gray-300">{item.skill}</span>
+                        <span className="text-sm text-[#9b4ed3]">{item.level}%</span>
+                      </div>
+                      <div className="h-2 bg-[#693B93]/20 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-[#693B93] to-[#9b4ed3] rounded-full transition-all duration-1000 ease-out"
+                          style={{
+                            width: isInView ? `${item.level}%` : '0%'
+                          }}
+                        />
+                      </div>
                     </div>
-                    <div className="h-2 bg-[#693B93]/20 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-gradient-to-r from-[#693B93] to-[#9b4ed3] rounded-full"
-                        style={{ width: `${item.level}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div id="packages" className="py-20 relative">
+        <div className="absolute inset-0 bg-[#693B93]/5" />
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold mb-12 text-center gradient-text">Open Source NPM Packages</h2>
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {[
+              {
+                name: 'react-native-fast-eth-wallet',
+                description: 'A high-performance Ethereum wallet implementation for React Native applications with optimized transaction handling and secure key management.',
+                url: 'https://www.npmjs.com/package/react-native-fast-eth-wallet',
+                downloads: '10k+',
+                tags: ['ethereum', 'wallet', 'react-native']
+              },
+              {
+                name: 'solana-multi-wallet-kit',
+                description: 'A comprehensive toolkit for integrating multiple Solana wallets into your applications with a unified API and seamless user experience.',
+                url: 'https://www.npmjs.com/package/solana-multi-wallet-kit',
+                downloads: '5k+',
+                tags: ['solana', 'wallet', 'web3']
+              }
+            ].map((pkg, i) => (
+              <div
+                key={i}
+                className="group relative bg-gradient-to-b from-[#693B93]/10 to-transparent p-8 rounded-2xl border border-[#693B93]/20 hover:border-[#693B93]/40 transition-all duration-300 hover-lift parallax-container animate-glow"
+              >
+                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-[#693B93]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
+                <div className="relative parallax-content">
+                  <div className="flex items-start justify-between mb-6">
+                    <Package className="w-8 h-8 text-[#9b4ed3] group-hover:scale-110 transition-transform" />
+                    <div className="flex items-center gap-2 text-gray-400">
+                      <Download className="w-4 h-4" />
+                      <span className="text-sm">{pkg.downloads}</span>
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-bold gradient-text mb-3">{pkg.name}</h3>
+                  <p className="text-gray-300 mb-6">{pkg.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {pkg.tags.map((tag, j) => (
+                      <span
+                        key={j}
+                        className="px-3 py-1 text-sm rounded-full bg-[#693B93]/10 text-[#9b4ed3] border border-[#693B93]/20 hover:bg-[#693B93]/20 transition-colors"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <a
+                    href={pkg.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-[#9b4ed3] hover:text-[#b974ed] transition-colors group/link"
+                  >
+                    View Package
+                    <ExternalLink className="w-4 h-4 transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
